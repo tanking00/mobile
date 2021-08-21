@@ -1,0 +1,396 @@
+@import '~@/styles/basicStyle.scss';
+
+// 清除浮动
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
+}
+
+// 浮动
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+// 单行文本省略号
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+// 多行文本省略号
+.ellipsis-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ellipsis-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+// 文字居中
+.center {
+  text-align: center;
+}
+
+// 弹性盒子居中
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-center-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+// 背景图居中
+.background-cover {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+// 字体加粗
+.font-weight {
+  font-weight: $font-weight;
+}
+.font-weight-b {
+  font-weight: $font-weight-b;
+}
+
+// 默认圆角
+.border-radius {
+  border-radius: $border-radius;
+}
+// 圆形圆角
+.border-radius-circular {
+  border-radius: 50%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/** 背景颜色 **/
+.background-color-primary {
+  background-color: $color-primary;
+}
+.background-color-secondary {
+  background-color: $color-secondary;
+}
+.background-color-auxiliary {
+  background-color: $color-auxiliary;
+}
+.background-color-white {
+  background-color: $color-white;
+}
+.background-color-bg {
+  background-color: $color-bg;
+}
+
+/** 文本颜色 **/
+.color-primary {
+  color: $color-primary;
+}
+.color-secondary {
+  color: $color-secondary;
+}
+.color-auxiliary {
+  color: $color-auxiliary;
+}
+.color-text-primary {
+  color: $color-text-primary;
+}
+.color-text-secondary {
+  color: $color-text-secondary;
+}
+.color-text-auxiliary {
+  color: $color-text-auxiliary;
+}
+.color-white {
+  color: $color-white;
+}
+.color-red {
+  color: $color-red;
+}
+.color-blue {
+  color: $color-blue;
+}
+.color-yellow {
+  color: $color-yellow;
+}
+.color-orange {
+  color: $color-orange;
+}
+.color-gray {
+  color: $color-text-secondary;
+}
+.color-red-dark {
+  color: $color-red-dark;
+}
+.color-green {
+  color: $color-green;
+}
+
+/** 文本大小 **/
+// 10px加小文字
+.font-size-xs {
+  font-size: $font-size-xs;
+}
+// 11px小文字
+.font-size-s {
+  font-size: $font-size-s;
+}
+// 中小(辅助文本)
+.font-size-sm {
+  font-size: $font-size-sm;
+}
+// 中(正文)
+.font-size-m {
+  font-size: $font-size-m;
+}
+// 中大(二级标题)
+.font-size-ml {
+  font-size: $font-size-ml;
+}
+// 大(一级标题)
+.font-size-l {
+  font-size: $font-size-l;
+}
+// 加大(导航标题)
+.font-size-xl {
+  font-size: $font-size-xl;
+}
+// 小(英文副标题)
+.font-size-en-s {
+  font-size: $font-size-en-s;
+}
+// 中(英文辅助文本)
+.font-size-en-m {
+  font-size: $font-size-en-m;
+}
+// 大(英文重要指数)
+.font-size-en-l {
+  font-size: $font-size-en-l;
+}
+
+/** icon大小 **/
+.icon-size-12 {
+  font-size: 12px;
+}
+.icon-size-16 {
+  font-size: 16px;
+}
+.icon-size-18 {
+  font-size: 18px;
+}
+.icon-size-20 {
+  font-size: 20px;
+}
+.icon-size-22 {
+  font-size: 22px;
+}
+.icon-size-24 {
+  font-size: 24px;
+}
+.icon-size-26 {
+  font-size: 26px;
+}
+.icon-size-28 {
+  font-size: 28px;
+}
+.icon-size-30 {
+  font-size: 30px;
+}
+.icon-size-32 {
+  font-size: 32px;
+}
+.icon-size-40 {
+  font-size: 40px;
+}
+.icon-size-42 {
+  font-size: 42px;
+}
+.icon-size-48 {
+  font-size: 48px;
+}
+.icon-size-60 {
+  font-size: 60px;
+}
+.icon-size-64 {
+  font-size: 64px;
+}
+
+/** 默认margin **/
+.margin-left {
+  margin-left: $space-horizontal;
+}
+.margin-right {
+  margin-right: $space-horizontal;
+}
+.margin-left-right {
+  margin-left: $space-horizontal;
+  margin-right: $space-horizontal;
+}
+.margin-top {
+  margin-top: $space-vertical;
+}
+.margin-bottom {
+  margin-bottom: $space-vertical;
+}
+.margin-top-bottom {
+  margin-top: $space-vertical;
+  margin-bottom: $space-vertical;
+}
+.margin-all {
+  margin: $space-vertical $space-horizontal;
+}
+
+/** 默认padding **/
+.padding-left {
+  padding-left: $space-horizontal;
+}
+.padding-right {
+  padding-right: $space-horizontal;
+}
+.padding-left-right {
+  padding-left: $space-horizontal;
+  padding-right: $space-horizontal;
+}
+.padding-top {
+  padding-top: $space-vertical;
+}
+.padding-bottom {
+  padding-bottom: $space-vertical;
+}
+.padding-top-bottom {
+  padding-top: $space-vertical;
+  padding-bottom: $space-vertical;
+}
+.padding-all {
+  padding: $space-vertical $space-horizontal;
+}
+
+/** 常用margin-left **/
+.margin-left-4 {
+  margin-left: 4px;
+}
+.margin-left-5 {
+  margin-left: 5px;
+}
+.margin-left-8 {
+  margin-left: 8px;
+}
+.margin-left-16 {
+  margin-left: 16px;
+}
+.margin-left-18 {
+  margin-left: 18px;
+}
+
+/** 常用margin-right **/
+.margin-right-3 {
+  margin-right: 3px;
+}
+
+// 下拉刷新最小高度
+.refresh-min-height-xs {
+  min-height: calc(100vh - #{$navbar-height} - 150px);
+  min-height: calc(100vh - constant(safe-area-inset-bottom) - #{$navbar-height} - 150px);
+  min-height: calc(100vh - env(safe-area-inset-bottom) - #{$navbar-height} - 150px);
+}
+.refresh-min-height-s {
+  min-height: calc(100vh - #{$navbar-height} - 100px);
+  min-height: calc(100vh - constant(safe-area-inset-bottom) - #{$navbar-height} - 100px);
+  min-height: calc(100vh - env(safe-area-inset-bottom) - #{$navbar-height} - 100px);
+}
+.refresh-min-height-m {
+  min-height: calc(100vh - #{$navbar-height} - 50px);
+  min-height: calc(100vh - constant(safe-area-inset-bottom) - #{$navbar-height} - 50px);
+  min-height: calc(100vh - env(safe-area-inset-bottom) - #{$navbar-height} - 50px);
+}
+.refresh-min-height-l {
+  min-height: calc(100vh - #{$navbar-height});
+  min-height: calc(100vh - constant(safe-area-inset-bottom) - #{$navbar-height});
+  min-height: calc(100vh - env(safe-area-inset-bottom) - #{$navbar-height});
+}
+
+// SubmitButton高度
+.submit-button-height {
+  padding-bottom: $submit-button-height;
+  padding-bottom: calc(constant(safe-area-inset-bottom) + #{$submit-button-height});
+  padding-bottom: calc(env(safe-area-inset-bottom) + #{$submit-button-height});
+}
+
+/* 居中显示 */
+.position_center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+// 保留空白符序列，但是正常地进行换行
+.pre-wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+// 最大宽度
+.max-width-120 {
+  max-width: 120px;
+}
+.max-width-150 {
+  max-width: 150px;
+}
+.max-width-160 {
+  max-width: 160px;
+}
+.max-width-180 {
+  max-width: 180px;
+}
+.max-width-200 {
+  max-width: 200px;
+}
+.max-width-220 {
+  max-width: 220px;
+}
+.max-width-230 {
+  max-width: 230px;
+}
+.max-width-250 {
+  max-width: 250px;
+}
+.max-width-255 {
+  max-width: 255px;
+}
+.max-width-260 {
+  max-width: 260px;
+}
+.max-width-270 {
+  max-width: 270px;
+}
+.max-width-275 {
+  max-width: 275px;
+}

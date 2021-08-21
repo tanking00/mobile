@@ -1,0 +1,413 @@
+<!-- Created by Tanking. -->
+<!-- 制定整改方案 -->
+<template>
+  <div class="container" :class="{ 'submit-button-height': taskId, 'container-supports': !taskId }">
+    <van-nav-bar :title="$route.meta.title" left-arrow fixed placeholder @click-left="$router.go(-1)" />
+    <div class="container-main padding-all">
+      <van-collapse v-model="activeNames" class="default-collapse">
+        <van-collapse-item name="1" title="基础信息">
+          <template #right-icon>
+            <CollapseIcon :isOpen="activeNames.indexOf('1') >= 0"></CollapseIcon>
+          </template>
+          <BasicInfo :details="details"></BasicInfo>
+        </van-collapse-item>
+        <van-collapse-item name="2" title="隐患提报">
+          <template #right-icon>
+            <CollapseIcon :isOpen="activeNames.indexOf('2') >= 0"></CollapseIcon>
+          </template>
+          <ReportInfo :details="details"></ReportInfo>
+        </van-collapse-item>
+        <van-collapse-item name="3" title="提报部门审核">
+          <template #right-icon>
+            <CollapseIcon :isOpen="activeNames.indexOf('3') >= 0"></CollapseIcon>
+          </template>
+          <AssignDeptInfo :details="hazardMajorSub"></AssignDeptInfo>
+        </van-collapse-item>
+        <van-collapse-item name="4" title="整改责任部门审核">
+          <template #right-icon>
+            <CollapseIcon :isOpen="activeNames.indexOf('4') >= 0"></CollapseIcon>
+          </template>
+          <div>
+            <div class="label">整改负责人</div>
+            <div class="value1">{{ principal }}</div>
+          </div>
+        </van-collapse-item>
+        <van-collapse-item v-if="recordList && recordList.length > 0" name="5" title="历史审批信息">
+          <template #right-icon>
+            <CollapseIcon :isOpen="activeNames.indexOf('5') >= 0"></CollapseIcon>
+          </template>
+          <ApprovalRecordInfo :recordList="recordList"></ApprovalRecordInfo>
+        </van-collapse-item>
+      </van-collapse>
+      <ProcessInfoPanel :processCode="processCode" :steps="steps" :stepActive="stepActive"></ProcessInfoPanel>
+    </div>
+    <SubmitButton v-if="taskId">
+      <SubmitButtonItem @click="showPanel1 = true" type="primary">退回</SubmitButtonItem>
+      <SubmitButtonItem @click="showPanel2 = true">转办</SubmitButtonItem>
+      <SubmitButtonItem @click="showPanel3 = true">提交</SubmitButtonItem>
+    </SubmitButton>
+    <SubmitPanel v-model="showPanel1" title="审批意见" buttonText="确认退回" @submit="onClickForm1">
+      <van-form ref="form1" @failed="onFailedForm1" @submit="onSubmitForm1" :show-error-message="false">
+        <div class="form-label-required">意见说明</div>
+        <van-field
+          v-model="form1.opinion"
+          rows="4"
+          type="textarea"
+          maxlength="1000"
+          placeholder="请填写意见说明"
+          :rules="[{ required: true, message: '请填写意见说明' }]"
+          show-word-limit
+          class="form-textarea"
+        />
+      </van-form>
+    </SubmitPanel>
+    <SubmitPanel v-model="showPanel2" title="审批意见" buttonText="确认转办" @submit="onClickForm2">
+      <van-form ref="form2" @failed="onFailedForm2" @submit="onSubmitForm2" :show-error-message="false">
+        <van-field
+          v-model="form2.nextUserName"
+          name="转办处理人"
+          label="转办处理人"
+          placeholder="请选择"
+          required
+          readonly
+          input-align="right"
+          is-link
+          size="large"
+          @click="showPeopleSearchPanel = true"
+          :rules="[{ required: true, message: '请选择转办处理人' }]"
+        />
+        <div class="form-label-required">意见说明</div>
+        <van-field
+          v-model="form2.opinion"
+          name="意见说明"
+          rows="4"
+          type="textarea"
+          maxlength="1000"
+          placeholder="请填写意见说明"
+          :rules="[{ required: true, message: '请填写意见说明' }]"
+          show-word-limit
+          class="form-textarea"
+        />
+      </van-form>
+    </SubmitPanel>
+    <SubmitPanel v-model="showPanel3" title="审批意见" buttonText="确认提交" :isLarge="true" @submit="onClickForm3">
+      <van-form ref="form3" @failed="onFailedForm3" @submit="onSubmitForm3" :show-error-message="false">
+        <div class="form-label-required">临时整改措施（重大隐患）</div>
+        <van-field
+          v-model="form3.temporaryAction"
+          rows="4"
+          type="textarea"
+          maxlength="1000"
+          placeholder="请输入"
+          show-word-limit
+          class="form-textarea"
+          :rules="[{ required: true, message: '请输入临时整改措施' }]"
+        />
+        <van-field
+          v-model="form3.temporaryFinishTimeFormat"
+          name="临时整改措施完成时间"
+          label="临时整改措施完成时间"
+          placeholder="请选择"
+          required
+          readonly
+          input-align="right"
+          is-link
+          size="large"
+          @click="onClickShowDatePickerSheet(1)"
+          :label-width="labelWidth"
+          :rules="[{ required: true, message: '请选择临时整改措施完成时间' }]"
+        />
+        <div class="form-label-required">整改方案</div>
+        <van-field
+          v-model="form3.remediationAction"
+          rows="4"
+          type="textarea"
+          maxlength="1000"
+          placeholder="请输入"
+          show-word-limit
+          class="form-textarea"
+          :rules="[{ required: true, message: '请输入整改方案' }]"
+        />
+        <van-field
+          v-model="form3.finishTimeFormat"
+          name="整改方案完成时间"
+          label="整改方案完成时间"
+          placeholder="请选择"
+          required
+          readonly
+          input-align="right"
+          is-link
+          size="large"
+          @click="onClickShowDatePickerSheet(2)"
+          :label-width="labelWidth"
+          :rules="[{ required: true, message: '请选择整改方案完成时间' }]"
+        />
+        <div class="form-label">意见说明</div>
+        <van-field
+          v-model="form3.opinion"
+          rows="4"
+          type="textarea"
+          maxlength="1000"
+          placeholder="请填写意见说明"
+          show-word-limit
+          class="form-textarea"
+        />
+      </van-form>
+    </SubmitPanel>
+    <PeopleSearchPanel v-model="showPeopleSearchPanel" @select="onSelect"></PeopleSearchPanel>
+    <DatePickerSheet v-model="showDatePickerSheet" @select="onSelectDate" :minDate="new Date()"></DatePickerSheet>
+  </div>
+</template>
+
+<script>
+import { getHazardMajorDetails, commitEnactScheme } from '@/api/hazard'
+import { BasicInfo, ReportInfo, ApprovalRecordInfo, AssignDeptInfo } from '../components'
+import { formatTimeStamp, formatTime } from '@/utils/timeFormat'
+import { Dialog, Toast } from 'vant'
+import { pxTransform } from '@/utils'
+
+export default {
+  name: 'HazardMajorSpecifyPlan',
+  components: { BasicInfo, ReportInfo, ApprovalRecordInfo, AssignDeptInfo },
+  data() {
+    return {
+      activeNames: ['4'],
+      stepActive: 3,
+      steps: [
+        { title: '隐患提报（已完成）', time: '' },
+        { title: '提报部门审核（已完成）', time: '' },
+        { title: '整改责任部门审核（已完成）', time: '' },
+        { title: '制定整改方案（进行中）', time: '' },
+        { title: '督办总监审核', time: '' },
+        { title: '安全部门审核', time: '' },
+        { title: '首席安全官审核', time: '' },
+        { title: '隐患整改执行', time: '' },
+        { title: '督办总监确认', time: '' },
+        { title: '整改验收', time: '' },
+        { title: '首席安全官确认', time: '' },
+        { title: '流程结束', time: '' }
+      ],
+      processCode: '',
+      details: {},
+      recordList: [],
+      showPanel1: false, // 退回
+      showPanel2: false, // 转办
+      showPanel3: false, // 同意
+      form1: { opinion: '' },
+      form2: {
+        nextUserId: '',
+        nextUserName: '',
+        opinion: ''
+      },
+      form3: {
+        opinion: '',
+        finishTime: '',
+        finishTimeFormat: '',
+        remediationAction: '',
+        temporaryAction: '',
+        temporaryFinishTime: '',
+        temporaryFinishTimeFormat: ''
+      },
+      datePickerType: '', // 判断是哪个时间选择器
+      showPeopleSearchPanel: false,
+      showDatePickerSheet: false,
+      principal: '', // 整改负责人
+      hazardMajorSub: {} // 提报部门信息
+    }
+  },
+  methods: {
+    getDetails() {
+      getHazardMajorDetails(this.hazardId, this.hazardSubId)
+        .then(res => {
+          const { data } = res
+          this.details = data
+          this.processCode = data.processCode
+          this.recordList = data.hazardRecords
+          this.principal = data.principal || ''
+          data.hazardMajorSub.forEach(item => {
+            if (item.id === this.hazardSubId) {
+              this.hazardMajorSub = item
+            }
+          })
+          const stepInfo1 = []
+          const stepInfo2 = []
+          const stepInfo3 = []
+          data.hazardRecords.forEach(item => {
+            if (item.nodeName === '隐患提报') {
+              stepInfo1.push(item)
+            }
+            if (item.nodeName === '提报部门审核') {
+              stepInfo2.push(item)
+            }
+            if (item.nodeName === '整改责任部门审核') {
+              stepInfo3.push(item)
+            }
+          })
+          this.steps[0].time = stepInfo1[0] ? formatTimeStamp(stepInfo1[0].createdTime, 6) : ''
+          this.steps[1].time = stepInfo2[0] ? formatTimeStamp(stepInfo2[0].createdTime, 6) : ''
+          this.steps[2].time = stepInfo3[0] ? formatTimeStamp(stepInfo3[0].createdTime, 6) : ''
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 选中转办人
+    onSelect(data) {
+      this.form2.nextUserName = data.name
+      this.form2.nextUserId = data.id
+      this.form3.principal = data.name
+      this.form3.principalId = data.id
+    },
+    onClickShowDatePickerSheet(type) {
+      this.datePickerType = type
+      this.showDatePickerSheet = true
+    },
+    // 时间选择回调
+    onSelectDate(value) {
+      if (this.datePickerType === 1) {
+        this.form3.temporaryFinishTimeFormat = this.formatTimeStamp(value, 5)
+        // this.form3.temporaryFinishTime = value
+        this.form3.temporaryFinishTime = formatTime(`${this.form3.temporaryFinishTimeFormat} 23:59:59`, 1)
+      }
+      if (this.datePickerType === 2) {
+        this.form3.finishTimeFormat = this.formatTimeStamp(value, 5)
+        // this.form3.finishTime = value
+        this.form3.finishTime = formatTime(`${this.form3.finishTimeFormat} 23:59:59`, 1)
+      }
+    },
+    // 退回
+    onClickForm1() {
+      this.$refs['form1'].submit()
+    },
+    onFailedForm1(info) {
+      Toast(info.errors[0].message)
+    },
+    onSubmitForm1() {
+      Dialog.confirm({
+        message: '确认要退回审批？'
+      })
+        .then(() => {
+          // on confirm
+          const req = {
+            action: 'SUBMIT_REJECT',
+            hazardId: this.hazardId,
+            hazardSubId: this.hazardSubId,
+            taskId: this.taskId,
+            opinion: this.form1.opinion,
+            nextUserId: '',
+            nextUserName: ''
+          }
+          commitEnactScheme(req)
+            .then(res => {
+              this.showPanel1 = false
+              this.$router.go(-1)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          // on cancel
+        })
+    },
+    // 转办
+    onClickForm2() {
+      this.$refs['form2'].submit()
+    },
+    onFailedForm2(info) {
+      Toast(info.errors[0].message)
+    },
+    onSubmitForm2() {
+      Dialog.confirm({
+        message: '确认要转办审批？'
+      })
+        .then(() => {
+          // on confirm
+          const req = {
+            action: 'SUBMIT_DELIVER',
+            hazardId: this.hazardId,
+            hazardSubId: this.hazardSubId,
+            taskId: this.taskId,
+            opinion: this.form2.opinion,
+            nextUserId: this.form2.nextUserId,
+            nextUserName: this.form2.nextUserName
+          }
+          commitEnactScheme(req)
+            .then(res => {
+              this.showPanel2 = false
+              this.$router.go(-1)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          // on cancel
+        })
+    },
+    // 同意
+    onClickForm3() {
+      this.$refs['form3'].submit()
+    },
+    onFailedForm3(info) {
+      Toast(info.errors[0].message)
+    },
+    onSubmitForm3() {
+      Dialog.confirm({
+        message: '确认要提交吗？'
+      })
+        .then(() => {
+          // on confirm
+          const req = {
+            action: 'SUBMIT_PASS',
+            hazardId: this.hazardId,
+            hazardSubId: this.hazardSubId,
+            taskId: this.taskId,
+            opinion: this.form3.opinion,
+            remediationAction: this.form3.remediationAction,
+            finishTime: this.form3.finishTime,
+            temporaryAction: this.form3.temporaryAction,
+            temporaryFinishTime: this.form3.temporaryFinishTime,
+            nextUserId: '',
+            nextUserName: ''
+          }
+          commitEnactScheme(req)
+            .then(res => {
+              this.showPanel3 = false
+              this.$router.go(-1)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  },
+  async created() {
+    this.getDetails()
+  },
+  computed: {
+    hazardId() {
+      return this.$route.query.hazardId
+    },
+    hazardSubId() {
+      return this.$route.query.hazardSubId
+    },
+    taskId() {
+      return this.$route.query.taskId
+    },
+    formatTimeStamp() {
+      return formatTimeStamp
+    },
+    labelWidth() {
+      return pxTransform(150)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~@/styles/basicStyle.scss';
+</style>

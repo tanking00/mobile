@@ -1,0 +1,553 @@
+// 默认台账容器
+.default-container-list {
+  padding-top: $navbar-height + $filterbar-height;
+  height: 100%;
+}
+
+// 默认筛选栏
+.default-filterbar {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: $filterbar-height;
+  top: $navbar-height;
+  z-index: 1;
+}
+
+// 默认台账列表
+.default-list {
+  padding-left: $space-horizontal;
+  padding-right: $space-horizontal;
+  height: 100%;
+  .list-item {
+    box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.03);
+    padding: 10px 12px;
+    border-radius: $border-radius;
+    background-color: $color-white;
+    margin-top: $space-vertical;
+    .item-top {
+      line-height: 23px;
+      margin-bottom: 6px;
+    }
+    .item-center {
+      margin-bottom: 6px;
+    }
+  }
+}
+
+// 默认详情流程折叠面板
+.default-collapse {
+  .van-collapse-item {
+    overflow: hidden;
+    box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    margin-bottom: $space-vertical;
+    // 头部样式
+    .van-collapse-item__title {
+      padding: 13px 12px;
+      align-items: center;
+      box-shadow: inset 0 -1px 0 0 rgba(57, 47, 131, 0.03);
+      &::after {
+        border-bottom: 0;
+      }
+      .van-cell__title span {
+        font-weight: $font-weight;
+        font-size: $font-size-l;
+      }
+    }
+    // 禁用状态标题颜色
+    .van-collapse-item__title--disabled {
+      color: $color-text-primary;
+      .container-collapseIcon {
+        display: none;
+      }
+    }
+    // 主体内容样式
+    .van-collapse-item__content {
+      .label {
+        color: $color-text-secondary;
+        font-size: $font-size-m;
+        margin-bottom: 8px;
+      }
+      .value {
+        color: $color-text-primary;
+        font-size: $font-size-ml;
+        margin-bottom: 20px;
+      }
+      .value1 {
+        color: $color-text-primary;
+        font-size: $font-size-ml;
+        margin-bottom: 10px;
+        line-height: 30px;
+      }
+      .value2 {
+        font-size: $font-size-ml;
+        color: $color-text-primary;
+        margin-bottom: 8px;
+        &:nth-last-of-type(1) {
+          margin-bottom: 0;
+        }
+      }
+      .van-divider {
+        margin: 29px 10px 21px 10px;
+      }
+      .flie-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .file-item {
+          width: 30%;
+          margin-bottom: 10px;
+          &:nth-of-type(3n + 2) {
+            margin-left: 5%;
+            margin-right: 5%;
+          }
+          .van-icon {
+            color: #e54444;
+          }
+          .name {
+            margin-top: 8px;
+            width: 100%;
+            text-align: center;
+            font-size: $font-size-sm;
+            color: $color-text-secondary;
+          }
+        }
+      }
+      .container-step {
+        .stpe-text {
+          line-height: 20px;
+          font-size: $font-size-sm;
+        }
+      }
+    }
+    &.contain-collapse {
+      .van-collapse-item__content {
+        padding: 12px;
+      }
+    }
+  }
+}
+
+// 默认流程
+.default-steps {
+  background-color: $color-white;
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.03);
+  border-radius: $border-radius;
+  overflow: hidden;
+  .van-step__title--active {
+    color: $color-text-secondary;
+  }
+  .title {
+    box-shadow: inset 0 -1px 0 0 rgba(57, 47, 131, 0.03);
+    padding: 13px 12px;
+    font-size: $font-size-l;
+    font-weight: 500;
+    .right {
+      color: $color-text-auxiliary;
+      font-size: $font-size-en-m;
+    }
+  }
+  .content {
+    .stpe-text {
+      line-height: 20px;
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+// 页面切换loading
+.toast-loading-transparent {
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+}
+
+// 默认功能列表
+.default-function-list {
+  padding: $space-vertical $space-horizontal;
+  .item-wrapper {
+    height: 140px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: $border-radius;
+    background-color: $color-white;
+    margin-bottom: $space-vertical;
+    .van-icon {
+      font-size: 40px;
+      color: $color-auxiliary;
+    }
+    .title {
+      margin-top: 8px;
+      font-size: $font-size-l;
+      font-weight: $font-weight;
+    }
+  }
+}
+
+// 内嵌折叠面板
+.embedded-collapse {
+  &.van-hairline--top-bottom::after {
+    border-width: 0;
+  }
+  .van-collapse-item {
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: $space-vertical;
+    box-shadow: none;
+    &.van-collapse-item--border::after {
+      border: 0;
+    }
+    // 头部样式
+    .van-collapse-item__title {
+      padding: 10px 12px;
+      background-color: #f6fafb;
+      box-shadow: none;
+      align-items: center;
+      &::after {
+        border-bottom: 0;
+      }
+      .van-cell__left-icon {
+        margin-right: 12px;
+      }
+      .van-cell__title {
+        padding-right: 16px;
+        span {
+          font-weight: $font-weight;
+          font-size: $font-size-ml;
+        }
+      }
+    }
+    &.evaluated .van-cell .van-cell__left-icon {
+      color: $color-auxiliary;
+    }
+    &.notEvaluated .van-cell .van-cell__left-icon {
+      color: $color-primary;
+    }
+    // 禁用状态标题颜色
+    .van-collapse-item__title--disabled {
+      color: $color-text-primary;
+      .container-collapseIcon {
+        display: none;
+      }
+    }
+    // 主体内容样式
+    .van-collapse-item__content {
+      background-color: #f6fafb;
+      padding: 0 12px 2px 12px !important;
+      .text {
+        color: $color-text-secondary;
+        font-size: $font-size-m;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+// 内嵌折叠面板2
+.embedded-collapse-2 {
+  border: 0;
+  &.van-hairline--top-bottom::after {
+    border-width: 0;
+  }
+  .van-collapse-item {
+    overflow: hidden;
+    border: 0;
+    margin-bottom: $space-vertical;
+    box-shadow: none;
+    &.van-collapse-item--border::after {
+      border: 0;
+    }
+    // 头部样式
+    .van-collapse-item__title {
+      padding: 5px 0;
+      box-shadow: none;
+      align-items: center;
+      &::after {
+        border-bottom: 0;
+      }
+      .van-cell__left-icon {
+        margin-right: 12px;
+      }
+      .van-cell__title {
+        padding-right: 16px;
+        span {
+          font-weight: $font-weight;
+          font-size: $font-size-ml;
+        }
+      }
+    }
+    // 禁用状态标题颜色
+    .van-collapse-item__title--disabled {
+      color: $color-text-primary;
+      .container-collapseIcon {
+        display: none;
+      }
+    }
+    // 主体内容样式
+    .van-collapse-item__content {
+      padding: 0 0 0 0 !important;
+    }
+  }
+}
+
+// 表单折叠面板
+.form-collapse {
+  border: 0;
+  &.van-hairline--top-bottom::after {
+    border-width: 0;
+  }
+  .van-collapse-item {
+    overflow: hidden;
+    border: 0;
+    margin-bottom: $space-vertical;
+    box-shadow: none;
+    &.van-collapse-item--border::after {
+      border: 0;
+    }
+    // 头部样式
+    .van-collapse-item__title {
+      padding: 10px 12px 38px 24px;
+      box-shadow: inset 0 -1px 0 0 rgba(57, 47, 131, 0.03);
+      align-items: center;
+      &::after {
+        border-bottom: 0;
+      }
+      .van-cell__left-icon {
+        margin-right: 12px;
+      }
+      .van-cell__title {
+        padding-right: 16px;
+        &::before {
+          position: absolute;
+          left: 12px;
+          color: #ed3458;
+          font-size: $font-size-m;
+          content: '*';
+        }
+        span {
+          font-weight: $font-weight;
+          font-size: $font-size-ml;
+        }
+      }
+      .van-cell__value {
+        position: absolute;
+        left: 24px;
+        bottom: 10px;
+        width: calc(100% - 34px);
+        text-align: left;
+        div {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      &.van-collapse-item__title--expanded {
+        padding: 10px 12px 10px 24px;
+        .van-cell__value {
+          display: none;
+        }
+      }
+    }
+    // 禁用状态标题颜色
+    .van-collapse-item__title--disabled {
+      color: $color-text-primary;
+      .container-collapseIcon {
+        display: none;
+      }
+    }
+    // 主体内容样式
+    .van-collapse-item__content {
+      padding: 0 0 0 0 !important;
+    }
+  }
+}
+
+// 表单折叠面板2
+.form-collapse-2 {
+  border: 0;
+  &.van-hairline--top-bottom::after {
+    border-width: 0;
+  }
+  .van-collapse-item {
+    overflow: hidden;
+    border: 0;
+    margin-bottom: $space-vertical;
+    box-shadow: none;
+    &.van-collapse-item--border::after {
+      border: 0;
+    }
+    // 头部样式
+    .van-collapse-item__title {
+      padding: 13px 12px;
+      box-shadow: inset 0 -1px 0 0 rgba(57, 47, 131, 0.03);
+      align-items: center;
+      &::after {
+        border-bottom: 0;
+      }
+      .van-cell__title {
+        span {
+          font-weight: $font-weight;
+          font-size: $font-size-l;
+        }
+      }
+    }
+    // 禁用状态标题颜色
+    .van-collapse-item__title--disabled {
+      color: $color-text-primary;
+      .container-collapseIcon {
+        display: none;
+      }
+    }
+    // 主体内容样式
+    .van-collapse-item__content {
+      padding: 0 0 0 0 !important;
+    }
+  }
+}
+
+// 灰色按钮
+.van-button--gray {
+  background-color: $color-text-auxiliary;
+  border: 1px solid $color-text-auxiliary;
+  color: $color-white;
+}
+
+// 表单label
+.van-field__label {
+  color: $color-text-primary;
+  font-size: $font-size-m;
+}
+.form-label {
+  margin-top: 20px;
+  padding-left: 16px;
+  color: $color-text-primary;
+  font-size: $font-size-m;
+}
+.form-label-required {
+  margin-top: 20px;
+  padding-left: 16px;
+  color: $color-text-primary;
+  font-size: $font-size-m;
+  position: relative;
+  &::before {
+    position: absolute;
+    left: 4px;
+    color: #ed3458;
+    font-size: $font-size-m;
+    content: '*';
+  }
+}
+.van-cell--required::before {
+  left: 4px;
+  font-size: $font-size-m;
+}
+.form-textarea {
+  .van-field__value {
+    border: 1px solid #edeff7;
+    padding: 6px 10px;
+  }
+  .van-field__word-limit {
+    font-size: $font-size-sm;
+    color: $color-text-auxiliary;
+  }
+}
+
+// 单选按钮icon
+.radio-img-icon {
+  height: 16px;
+}
+
+// 上传
+.van-uploader__preview-image,
+.van-uploader__file {
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+}
+.van-uploader__upload {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #edeff7;
+  background: $color-white;
+  border-radius: 3px;
+  margin: 0 0 10px 0;
+}
+.van-uploader__preview {
+  margin: 0 12px 10px 0;
+  &:nth-of-type(3n) {
+    margin: 0 0 10px 0;
+  }
+  .van-uploader__file {
+    .van-uploader__file-icon {
+      font-size: 48px;
+      color: $color-primary;
+    }
+  }
+}
+.small-container {
+  .van-uploader__preview-image,
+  .van-uploader__file {
+    width: 88px;
+    height: 88px;
+  }
+  .van-uploader__upload {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+// 默认多选
+.default-multipleChoice {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .label {
+    flex-shrink: 0;
+    margin-right: 24px;
+    .required {
+      position: relative;
+      &::before {
+        position: absolute;
+        left: 4px;
+        color: #ed3458;
+        font-size: $font-size-m;
+        content: '*';
+      }
+    }
+  }
+  .content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .value {
+      margin-right: 4px;
+      .item {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+    .value-inline {
+      margin-right: 4px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      .item {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: 8px;
+      }
+    }
+    .placeholder {
+      color: $color-text-secondary;
+      margin-right: 4px;
+    }
+  }
+}

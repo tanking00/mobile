@@ -1,0 +1,59 @@
+// 主题色
+$color-primary: #ed3458; // 主要色
+$color-secondary: #1a2b6a; // 次级色
+$color-auxiliary: #00b9ef; // 辅助色
+
+// 文字颜色
+$color-text-primary: #333333; // 主要
+$color-text-secondary: #8d89a1; // 次要
+$color-text-auxiliary: #ced2df; // 辅助
+
+// 背景色
+$color-bg: #edeff7;
+
+// 其他颜色
+$color-white: #ffffff;
+$color-red: #ed3458;
+$color-blue: #00b9ef;
+$color-yellow: #f2c434;
+$color-orange: #f87b1b;
+$color-red-dark: #ed6e34; // 暗红
+$color-green: #67c23a;
+
+// 字体大小
+$font-size-xs: 10px; // 加小(导航图标标题)
+$font-size-s: 11px; // 小(菜单标题)
+$font-size-sm: 13px; // 中小(辅助文本)
+$font-size-m: 14px; // 中(正文)
+$font-size-ml: 15px; // 中大(二级标题)
+$font-size-l: 16px; // 大(一级标题)
+$font-size-xl: 18px; // 加大(导航标题)
+// 英文字体大小
+$font-size-en-s: 12px; // 小(英文副标题)
+$font-size-en-m: 13px; // 中(辅助文本)
+$font-size-en-l: 28px; // 大(重要指数)
+
+// 左右间隔
+$space-horizontal: 10px;
+// 上下间隔
+$space-vertical: 10px;
+
+// 默认边框大小
+$border-radius: 8px;
+
+// navbar高度
+$navbar-height: 50px;
+
+// 筛选栏高度
+$filterbar-height: 48px;
+
+// 加粗
+$font-weight: 500;
+$font-weight-b: 600;
+
+// SubmitButton高度
+$submit-button-height: 62px;
+
+:export {
+  theme: $color-primary;
+}
